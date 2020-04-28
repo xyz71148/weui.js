@@ -58,7 +58,7 @@ weui.alert('alert');
 
 ### 文档
 
-[Documents](https://github.com/Tencent/weui.js/tree/master/docs/README.md)
+[Documents](https://xyz71148.github.io/weui.js)
 
 ### 贡献
 
