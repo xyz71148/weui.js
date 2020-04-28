@@ -12,9 +12,9 @@ weui.js
 
 ### 手机预览
 
-![https://weui.io](https://cloud.githubusercontent.com/assets/2395166/20742697/96705822-b70c-11e6-9486-c03a5939a1d6.png)
+![qrcode](https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Fxyz71148.github.io%2Fweui.js%2Fdist%2Fexample%2Findex.html)
 
-[https://weui.io/weui.js/](https://weui.io/weui.js/)
+[预览](https://xyz71148.github.io/weui.js/dist/example/index.html)
 
 
 ### 开发

@@ -1,13 +1,13 @@
 /*
 * Tencent is pleased to support the open source community by making WeUI.js available.
-* 
+*
 * Copyright (C) 2017 THL A29 Limited, a Tencent company. All rights reserved.
-* 
+*
 * Licensed under the MIT License (the "License"); you may not use this file except in compliance
 * with the License. You may obtain a copy of the License at
-* 
+*
 *       http://opensource.org/licenses/MIT
-* 
+*
 * Unless required by applicable law or agreed to in writing, software distributed under the License is
 * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
 * either express or implied. See the License for the specific language governing permissions and
@@ -47,7 +47,7 @@ let _sington;
  *         onClick: function () { alert('确定') }
  *     }]
  * });
- * 
+ *
  * // 主动关闭
  * var $dialog = weui.dialog({...});
  * $dialog.hide(function(){
@@ -71,6 +71,7 @@ function dialog(options = {}) {
     }, options);
 
     const $dialogWrap = $($.render(tpl, options));
+    $dialogWrap.addClass('weui-custom');
     const $dialog = $dialogWrap.find('.weui-dialog');
     const $mask = $dialogWrap.find('.weui-mask');
 
@@ -97,7 +98,12 @@ function dialog(options = {}) {
         .on('click', '.weui-dialog__btn', function(evt){
             const index = $(this).index();
             if(options.buttons[index].onClick){
-                if(options.buttons[index].onClick.call(this, evt) !== false) hide();
+                if(options.prompt){
+                    if(options.buttons[index].onClick.call(this, $dialog.find('input')[0].value,evt) !== false) hide();
+                }else{
+                    if(options.buttons[index].onClick.call(this, evt) !== false) hide();
+                }
+
             }else{
                 hide();
             }

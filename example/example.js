@@ -6,13 +6,26 @@ FastClick.attach(document.body);
 
 /* dialog */
 document.querySelector('#alertBtn').addEventListener('click', function () {
-    weui.alert('自定义标题的alert', function () {
-        console.log('ok')
+    weui.prompt('自定义标题的prompt', function () {
+        console.log('yes')
+    }, function () {
+        console.log('no')
     }, {
         title: '自定义标题'
     });
 });
 
+/* prompt */
+document.querySelector('#promptBtn').addEventListener('click', function () {
+
+    weui.prompt("请输入", function (value) {
+        console.log('ok',value);
+        alert(value)
+    }, {
+        input:true,
+        title: '自定义标题'
+    });
+});
 
 /* confirm */
 document.querySelector('#confirmBtn').addEventListener('click', function () {
@@ -139,7 +152,7 @@ document.querySelector('#pickerBtn').addEventListener('click', function () {
             console.log(result);
         },
         id: 'picker',
-        title: '单列选择器'        
+        title: '单列选择器'
     });
 });
 
@@ -170,7 +183,7 @@ document.querySelector('#datePickerBtn').addEventListener('click', function () {
             console.log(result);
         },
         id: 'datePicker',
-        title: '日期选择器'        
+        title: '日期选择器'
     });
 });
 
