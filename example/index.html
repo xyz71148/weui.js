@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover">
     <title>weui.js</title>
-    <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.0.1/weui.min.css">
+    <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.3.0/weui.min.css">
     <style>
         html, body{
             height: 100%;
@@ -12,6 +12,8 @@
         }
         body{
             font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
+            width:750px;
+            margin: 0 auto;
         }
         .item{
             padding: 10px 0;
@@ -35,7 +37,9 @@
 
         /*fix fastclick很难点中的bug*/
         label > * { pointer-events: none; }
+        .weui-custom{
 
+        }
     </style>
 </head>
 <body ontouchstart>
@@ -54,6 +58,7 @@
             <a href="javascript:;" id="confirmBtn" class="weui-btn weui-btn_default">Confirm</a>
             <a href="javascript:;" id="toastBtn" class="weui-btn weui-btn_default">Toast</a>
             <a href="javascript:;" id="loadingBtn" class="weui-btn weui-btn_default">Loading</a>
+            <a href="javascript:;" id="loadingBtnMask" class="weui-btn weui-btn_default">Loading-mask</a>
             <a href="javascript:;" id="actionSheetBtn" class="weui-btn weui-btn_default">ActionSheet</a>
             <a href="javascript:;" id="topTipsBtn" class="weui-btn weui-btn_default">TopTips</a>
             <a href="javascript:;" id="pickerBtn" class="weui-btn weui-btn_default">Picker</a>

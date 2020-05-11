@@ -6,10 +6,8 @@ FastClick.attach(document.body);
 
 /* dialog */
 document.querySelector('#alertBtn').addEventListener('click', function () {
-    weui.prompt('自定义标题的prompt', function () {
+    weui.alert('content', function () {
         console.log('yes')
-    }, function () {
-        console.log('no')
     }, {
         title: '自定义标题'
     });
@@ -53,7 +51,14 @@ document.querySelector('#loadingBtn').addEventListener('click', function () {
     var loading = weui.loading('loading');
     setTimeout(function () {
         loading.hide();
-    }, 3000);
+    }, 2000);
+});
+/* loading with mask */
+document.querySelector('#loadingBtnMask').addEventListener('click', function () {
+    var loading = weui.loading('loading',{showMask:true});
+    setTimeout(function () {
+        loading.hide();
+    }, 2000);
 });
 
 

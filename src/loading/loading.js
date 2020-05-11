@@ -1,13 +1,13 @@
 /*
 * Tencent is pleased to support the open source community by making WeUI.js available.
-* 
+*
 * Copyright (C) 2017 THL A29 Limited, a Tencent company. All rights reserved.
-* 
+*
 * Licensed under the MIT License (the "License"); you may not use this file except in compliance
 * with the License. You may obtain a copy of the License at
-* 
+*
 *       http://opensource.org/licenses/MIT
-* 
+*
 * Unless required by applicable law or agreed to in writing, software distributed under the License is
 * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
 * either express or implied. See the License for the specific language governing permissions and
@@ -15,7 +15,8 @@
 */
 
 import $ from '../util/util';
-import tpl from './loading.html';
+import loading_mask from './loading_mask.html';
+import loading_no_mask from './loading_no_mask.html';
 
 let _sington;
 
@@ -40,9 +41,10 @@ function loading(content = '', options = {}) {
 
     options = $.extend({
         content: content,
-        className: ''
+        className: '',
+        showMask:false
     }, options);
-
+    const tpl = options.showMask ? loading_mask : loading_no_mask;
     const $loadingWrap = $($.render(tpl, options));
     const $loading = $loadingWrap.find('.weui-toast');
     const $mask = $loadingWrap.find('.weui-mask');
