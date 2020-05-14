@@ -14,6 +14,7 @@
 * limitations under the License.
 */
 
+import drawer from './drawer/drawer';
 import dialog from './dialog/dialog';
 import alert from './alert/alert';
 import prompt from './prompt/prompt';
@@ -46,5 +47,6 @@ export default {
     picker,
     datePicker,
     gallery,
-    slider
+    slider,
+    drawer
 };

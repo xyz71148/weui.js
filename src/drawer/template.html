@@ -1,0 +1,19 @@
+<div class="<%= className %>">
+    <div class="weui-mask"></div>
+    <div class="weui-actionsheet weui-drawer" style="width:<%= width %>">
+        <% if(title){ %>
+        <div class="weui-actionsheet__title">
+            <p class="weui-actionsheet__title-text"><%= title %></p>
+        </div>
+        <% } %>
+        <div class="weui-actionsheet__menu">
+            <% for(var i = 0; i < menus.length; i++){ %>
+            <% if(menus[i].label =='gap'){ %>
+            <div style="height: 0px;border-top: 0px #e9e9e9 solid;margin: 0 8px 1px 8px"></div>
+            <% }else{ %>
+            <div class="weui-actionsheet__cell"><%= menus[i].label %></div>
+            <% } %>
+            <% } %>
+        </div>
+    </div>
+</div>

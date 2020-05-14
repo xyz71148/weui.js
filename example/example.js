@@ -4,6 +4,38 @@ import weui from '../src/weui';
 
 FastClick.attach(document.body);
 
+document.querySelector('#drawerBtn').addEventListener('click', function () {
+    weui.drawer([
+        {
+            label: '拍照',
+            onClick: function () {
+                console.log('拍照');
+            }
+        },
+        {
+            label: 'gap',
+        },
+        {
+            label: '从相册选择',
+            onClick: function () {
+                console.log('从相册选择');
+            }
+        }, {
+            label: '其他',
+            onClick: function () {
+                console.log('其他');
+            }
+        }
+    ], {
+        title: 'Drawer',
+        width:"200px",
+        className: "custom-classname",
+        onClose: function(){
+            console.log('关闭');
+        }
+    });
+});
+
 /* dialog */
 document.querySelector('#alertBtn').addEventListener('click', function () {
     weui.alert('content', function () {

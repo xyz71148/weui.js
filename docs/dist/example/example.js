@@ -59,6 +59,34 @@
 	// import 'weui';
 	_fastclick2.default.attach(document.body);
 
+	document.querySelector('#drawerBtn').addEventListener('click', function () {
+	    _weui2.default.drawer([{
+	        label: '拍照',
+	        onClick: function onClick() {
+	            console.log('拍照');
+	        }
+	    }, {
+	        label: 'gap'
+	    }, {
+	        label: '从相册选择',
+	        onClick: function onClick() {
+	            console.log('从相册选择');
+	        }
+	    }, {
+	        label: '其他',
+	        onClick: function onClick() {
+	            console.log('其他');
+	        }
+	    }], {
+	        title: 'Drawer',
+	        width: "200px",
+	        className: "custom-classname",
+	        onClose: function onClose() {
+	            console.log('关闭');
+	        }
+	    });
+	});
+
 	/* dialog */
 	document.querySelector('#alertBtn').addEventListener('click', function () {
 	    _weui2.default.alert('content', function () {
@@ -1423,65 +1451,85 @@
 	    value: true
 	});
 
-	var _dialog = __webpack_require__(3);
+	var _drawer = __webpack_require__(3);
+
+	var _drawer2 = _interopRequireDefault(_drawer);
+
+	var _dialog = __webpack_require__(9);
 
 	var _dialog2 = _interopRequireDefault(_dialog);
 
-	var _alert = __webpack_require__(9);
+	var _alert = __webpack_require__(11);
 
 	var _alert2 = _interopRequireDefault(_alert);
 
-	var _prompt = __webpack_require__(10);
+	var _prompt = __webpack_require__(12);
 
 	var _prompt2 = _interopRequireDefault(_prompt);
 
-	var _confirm = __webpack_require__(11);
+	var _confirm = __webpack_require__(13);
 
 	var _confirm2 = _interopRequireDefault(_confirm);
 
-	var _toast = __webpack_require__(12);
+	var _toast = __webpack_require__(14);
 
 	var _toast2 = _interopRequireDefault(_toast);
 
-	var _loading = __webpack_require__(14);
+	var _loading = __webpack_require__(16);
 
 	var _loading2 = _interopRequireDefault(_loading);
 
-	var _actionSheet = __webpack_require__(17);
+	var _actionSheet = __webpack_require__(19);
 
 	var _actionSheet2 = _interopRequireDefault(_actionSheet);
 
-	var _topTips = __webpack_require__(19);
+	var _topTips = __webpack_require__(21);
 
 	var _topTips2 = _interopRequireDefault(_topTips);
 
-	var _searchBar = __webpack_require__(21);
+	var _searchBar = __webpack_require__(23);
 
 	var _searchBar2 = _interopRequireDefault(_searchBar);
 
-	var _tab = __webpack_require__(22);
+	var _tab = __webpack_require__(24);
 
 	var _tab2 = _interopRequireDefault(_tab);
 
-	var _form = __webpack_require__(23);
+	var _form = __webpack_require__(25);
 
 	var _form2 = _interopRequireDefault(_form);
 
-	var _uploader = __webpack_require__(24);
+	var _uploader = __webpack_require__(26);
 
 	var _uploader2 = _interopRequireDefault(_uploader);
 
-	var _picker = __webpack_require__(28);
+	var _picker = __webpack_require__(30);
 
-	var _gallery = __webpack_require__(34);
+	var _gallery = __webpack_require__(36);
 
 	var _gallery2 = _interopRequireDefault(_gallery);
 
-	var _slider = __webpack_require__(36);
+	var _slider = __webpack_require__(38);
 
 	var _slider2 = _interopRequireDefault(_slider);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	/*
+	* Tencent is pleased to support the open source community by making WeUI.js available.
+	*
+	* Copyright (C) 2017 THL A29 Limited, a Tencent company. All rights reserved.
+	*
+	* Licensed under the MIT License (the "License"); you may not use this file except in compliance
+	* with the License. You may obtain a copy of the License at
+	*
+	*       http://opensource.org/licenses/MIT
+	*
+	* Unless required by applicable law or agreed to in writing, software distributed under the License is
+	* distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+	* either express or implied. See the License for the specific language governing permissions and
+	* limitations under the License.
+	*/
 
 	exports.default = {
 	    dialog: _dialog2.default,
@@ -1499,23 +1547,9 @@
 	    picker: _picker.picker,
 	    datePicker: _picker.datePicker,
 	    gallery: _gallery2.default,
-	    slider: _slider2.default
-	}; /*
-	   * Tencent is pleased to support the open source community by making WeUI.js available.
-	   *
-	   * Copyright (C) 2017 THL A29 Limited, a Tencent company. All rights reserved.
-	   *
-	   * Licensed under the MIT License (the "License"); you may not use this file except in compliance
-	   * with the License. You may obtain a copy of the License at
-	   *
-	   *       http://opensource.org/licenses/MIT
-	   *
-	   * Unless required by applicable law or agreed to in writing, software distributed under the License is
-	   * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
-	   * either express or implied. See the License for the specific language governing permissions and
-	   * limitations under the License.
-	   */
-
+	    slider: _slider2.default,
+	    drawer: _drawer2.default
+	};
 	module.exports = exports['default'];
 
 /***/ }),
@@ -1532,9 +1566,9 @@
 
 	var _util2 = _interopRequireDefault(_util);
 
-	var _dialog = __webpack_require__(8);
+	var _template = __webpack_require__(8);
 
-	var _dialog2 = _interopRequireDefault(_dialog);
+	var _template2 = _interopRequireDefault(_template);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1557,70 +1591,56 @@
 	var _sington = void 0;
 
 	/**
-	 * dialog，弹窗，alert和confirm的父类
-	 *
+	 * actionsheet Drawer菜单
+	 * @param {array} menus 上层的选项
+	 * @param {string} menus[].label 选项的文字
+	 * @param {function} menus[].onClick 选项点击时的回调
 	 * @param {object=} options 配置项
-	 * @param {string=} options.title 弹窗的标题
-	 * @param {string=} options.content 弹窗的内容
-	 * @param {string=} options.className 弹窗的自定义类名
-	 * @param {array=} options.buttons 按钮配置项
-	 *
-	 * @param {string} [options.buttons[].label=确定] 按钮的文字
-	 * @param {string} [options.buttons[].type=primary] 按钮的类型 [primary, default]
-	 * @param {function} [options.buttons[].onClick=$.noop] 按钮的回调
+	 * @param {string=} options.title actionSheet的title，如果isAndroid=true，则不会显示
+	 * @param {string=} options.className 自定义类名
+	 * @param {string=} options.width Drawer width
+	 * @param {function=} [options.onClose] actionSheet关闭后的回调
 	 *
 	 * @example
-	 * weui.dialog({
-	 *     title: 'dialog标题',
-	 *     content: 'dialog内容',
+	 * weui.drawer([
+	 *     {
+	 *         label: '拍照',
+	 *         onClick: function () {
+	 *             console.log('拍照');
+	 *         }
+	 *     }
+	 * ], {
 	 *     className: 'custom-classname',
-	 *     buttons: [{
-	 *         label: '取消',
-	 *         type: 'default',
-	 *         onClick: function () { alert('取消') }
-	 *     }, {
-	 *         label: '确定',
-	 *         type: 'primary',
-	 *         onClick: function () { alert('确定') }
-	 *     }]
-	 * });
-	 *
-	 * // 主动关闭
-	 * var $dialog = weui.dialog({...});
-	 * $dialog.hide(function(){
-	 *      console.log('`dialog` has been hidden');
+	 *     onClose: function(){
+	 *         console.log('关闭');
+	 *     }
 	 * });
 	 */
-	function dialog() {
-	    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	function drawer() {
+	    var menus = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+	    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
 	    if (_sington) return _sington;
 
-	    var isAndroid = _util2.default.os.android;
 	    options = _util2.default.extend({
-	        title: null,
-	        content: '',
+	        menus: menus,
+	        title: '',
+	        width: '200px',
 	        className: '',
-	        buttons: [{
-	            label: '确定',
-	            type: 'primary',
-	            onClick: _util2.default.noop
-	        }],
-	        isAndroid: isAndroid
+	        onClose: _util2.default.noop
 	    }, options);
-
-	    var $dialogWrap = (0, _util2.default)(_util2.default.render(_dialog2.default, options));
-	    $dialogWrap.addClass('weui-custom');
-	    var $dialog = $dialogWrap.find('.weui-dialog');
-	    var $mask = $dialogWrap.find('.weui-mask');
+	    var $actionSheetWrap = (0, _util2.default)(_util2.default.render(_template2.default, options));
+	    var $actionSheet = $actionSheetWrap.find('.weui-actionsheet');
+	    var $actionSheetMask = $actionSheetWrap.find('.weui-mask');
 
 	    function _hide(callback) {
 	        _hide = _util2.default.noop; // 防止二次调用导致报错
 
-	        $mask.addClass('weui-animate-fade-out');
-	        $dialog.addClass('weui-animate-fade-out').on('animationend webkitAnimationEnd', function () {
-	            $dialogWrap.remove();
+	        $actionSheet.addClass('weui-animate-viewShowFromRightLeave');
+	        $actionSheetMask.addClass('weui-animate-fade-out').on('animationend webkitAnimationEnd', function () {
+	            $actionSheetWrap.remove();
 	            _sington = false;
+	            options.onClose();
 	            callback && callback();
 	        });
 	    }
@@ -1628,32 +1648,26 @@
 	        _hide(callback);
 	    }
 
-	    (0, _util2.default)('body').append($dialogWrap);
-	    // 不能直接把.weui-animate-fade-in加到$dialog，会导致mask的z-index有问题
-	    $mask.addClass('weui-animate-fade-in');
-	    $dialog.addClass('weui-animate-fade-in');
+	    (0, _util2.default)('body').append($actionSheetWrap);
 
-	    $dialogWrap.on('click', '.weui-dialog__btn', function (evt) {
+	    // 这里获取一下计算后的样式，强制触发渲染. fix IOS10下闪现的问题
+	    _util2.default.getStyle($actionSheet[0], 'transform');
+
+	    $actionSheet.addClass('weui-animate-viewShowFromLeftEnter');
+	    $actionSheetMask.addClass('weui-animate-fade-in').on('click', function () {
+	        hide();
+	    });
+	    $actionSheetWrap.find('.weui-actionsheet__menu').on('click', '.weui-actionsheet__cell', function (evt) {
 	        var index = (0, _util2.default)(this).index();
-	        if (options.buttons[index].onClick) {
-	            if (options.prompt) {
-	                if (options.buttons[index].onClick.call(this, $dialog.find('input')[0].value, evt) !== false) hide();
-	            } else {
-	                if (options.buttons[index].onClick.call(this, evt) !== false) hide();
-	            }
-	        } else {
-	            hide();
-	        }
-	    }).on('touchmove', function (evt) {
-	        evt.stopPropagation();
-	        evt.preventDefault();
+	        menus[index].onClick.call(this, evt);
+	        hide();
 	    });
 
-	    _sington = $dialogWrap[0];
+	    _sington = $actionSheetWrap[0];
 	    _sington.hide = hide;
 	    return _sington;
 	}
-	exports.default = dialog;
+	exports.default = drawer;
 	module.exports = exports['default'];
 
 /***/ }),
@@ -2210,10 +2224,154 @@
 /* 8 */
 /***/ (function(module, exports) {
 
-	module.exports = "<div class=\"<%=className%>\"> <div class=weui-mask></div> <div class=\"weui-dialog <% if(isAndroid){ %> weui-skin_android <% } %>\"> <% if(title){ %> <div class=weui-dialog__hd><strong class=weui-dialog__title><%=title%></strong></div> <% } %> <div class=weui-dialog__bd><%=content%></div> <div class=weui-dialog__ft> <% for(var i = 0; i < buttons.length; i++){ %> <a href=javascript:; class=\"weui-dialog__btn weui-dialog__btn_<%=buttons[i]['type']%>\"><%=buttons[i]['label']%></a> <% } %> </div> </div> </div> ";
+	module.exports = "<div class=\"<%= className %>\"> <div class=weui-mask></div> <div class=\"weui-actionsheet weui-drawer\" style=\"width:<%= width %>\"> <% if(title){ %> <div class=weui-actionsheet__title> <p class=weui-actionsheet__title-text><%= title %></p> </div> <% } %> <div class=weui-actionsheet__menu> <% for(var i = 0; i < menus.length; i++){ %> <% if(menus[i].label =='gap'){ %> <div style=\"height:0;border-top:0 #e9e9e9 solid;margin:0 8px 1px 8px\"></div> <% }else{ %> <div class=weui-actionsheet__cell><%= menus[i].label %></div> <% } %> <% } %> </div> </div> </div> ";
 
 /***/ }),
 /* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _util = __webpack_require__(4);
+
+	var _util2 = _interopRequireDefault(_util);
+
+	var _dialog = __webpack_require__(10);
+
+	var _dialog2 = _interopRequireDefault(_dialog);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	/*
+	* Tencent is pleased to support the open source community by making WeUI.js available.
+	*
+	* Copyright (C) 2017 THL A29 Limited, a Tencent company. All rights reserved.
+	*
+	* Licensed under the MIT License (the "License"); you may not use this file except in compliance
+	* with the License. You may obtain a copy of the License at
+	*
+	*       http://opensource.org/licenses/MIT
+	*
+	* Unless required by applicable law or agreed to in writing, software distributed under the License is
+	* distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+	* either express or implied. See the License for the specific language governing permissions and
+	* limitations under the License.
+	*/
+
+	var _sington = void 0;
+
+	/**
+	 * dialog，弹窗，alert和confirm的父类
+	 *
+	 * @param {object=} options 配置项
+	 * @param {string=} options.title 弹窗的标题
+	 * @param {string=} options.content 弹窗的内容
+	 * @param {string=} options.className 弹窗的自定义类名
+	 * @param {array=} options.buttons 按钮配置项
+	 *
+	 * @param {string} [options.buttons[].label=确定] 按钮的文字
+	 * @param {string} [options.buttons[].type=primary] 按钮的类型 [primary, default]
+	 * @param {function} [options.buttons[].onClick=$.noop] 按钮的回调
+	 *
+	 * @example
+	 * weui.dialog({
+	 *     title: 'dialog标题',
+	 *     content: 'dialog内容',
+	 *     className: 'custom-classname',
+	 *     buttons: [{
+	 *         label: '取消',
+	 *         type: 'default',
+	 *         onClick: function () { alert('取消') }
+	 *     }, {
+	 *         label: '确定',
+	 *         type: 'primary',
+	 *         onClick: function () { alert('确定') }
+	 *     }]
+	 * });
+	 *
+	 * // 主动关闭
+	 * var $dialog = weui.dialog({...});
+	 * $dialog.hide(function(){
+	 *      console.log('`dialog` has been hidden');
+	 * });
+	 */
+	function dialog() {
+	    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+	    if (_sington) return _sington;
+
+	    var isAndroid = _util2.default.os.android;
+	    options = _util2.default.extend({
+	        title: null,
+	        content: '',
+	        className: '',
+	        buttons: [{
+	            label: '确定',
+	            type: 'primary',
+	            onClick: _util2.default.noop
+	        }],
+	        isAndroid: isAndroid
+	    }, options);
+
+	    var $dialogWrap = (0, _util2.default)(_util2.default.render(_dialog2.default, options));
+	    $dialogWrap.addClass('weui-custom');
+	    var $dialog = $dialogWrap.find('.weui-dialog');
+	    var $mask = $dialogWrap.find('.weui-mask');
+
+	    function _hide(callback) {
+	        _hide = _util2.default.noop; // 防止二次调用导致报错
+
+	        $mask.addClass('weui-animate-fade-out');
+	        $dialog.addClass('weui-animate-fade-out').on('animationend webkitAnimationEnd', function () {
+	            $dialogWrap.remove();
+	            _sington = false;
+	            callback && callback();
+	        });
+	    }
+	    function hide(callback) {
+	        _hide(callback);
+	    }
+
+	    (0, _util2.default)('body').append($dialogWrap);
+	    // 不能直接把.weui-animate-fade-in加到$dialog，会导致mask的z-index有问题
+	    $mask.addClass('weui-animate-fade-in');
+	    $dialog.addClass('weui-animate-fade-in');
+
+	    $dialogWrap.on('click', '.weui-dialog__btn', function (evt) {
+	        var index = (0, _util2.default)(this).index();
+	        if (options.buttons[index].onClick) {
+	            if (options.prompt) {
+	                if (options.buttons[index].onClick.call(this, $dialog.find('input')[0].value, evt) !== false) hide();
+	            } else {
+	                if (options.buttons[index].onClick.call(this, evt) !== false) hide();
+	            }
+	        } else {
+	            hide();
+	        }
+	    }).on('touchmove', function (evt) {
+	        evt.stopPropagation();
+	        evt.preventDefault();
+	    });
+
+	    _sington = $dialogWrap[0];
+	    _sington.hide = hide;
+	    return _sington;
+	}
+	exports.default = dialog;
+	module.exports = exports['default'];
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports) {
+
+	module.exports = "<div class=\"<%=className%>\"> <div class=weui-mask></div> <div class=\"weui-dialog <% if(isAndroid){ %> weui-skin_android <% } %>\"> <% if(title){ %> <div class=weui-dialog__hd><strong class=weui-dialog__title><%=title%></strong></div> <% } %> <div class=weui-dialog__bd><%=content%></div> <div class=weui-dialog__ft> <% for(var i = 0; i < buttons.length; i++){ %> <a href=javascript:; class=\"weui-dialog__btn weui-dialog__btn_<%=buttons[i]['type']%>\"><%=buttons[i]['label']%></a> <% } %> </div> </div> </div> ";
+
+/***/ }),
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2242,7 +2400,7 @@
 
 	var _util2 = _interopRequireDefault(_util);
 
-	var _dialog = __webpack_require__(3);
+	var _dialog = __webpack_require__(9);
 
 	var _dialog2 = _interopRequireDefault(_dialog);
 
@@ -2309,7 +2467,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2338,7 +2496,7 @@
 
 	var _util2 = _interopRequireDefault(_util);
 
-	var _dialog = __webpack_require__(3);
+	var _dialog = __webpack_require__(9);
 
 	var _dialog2 = _interopRequireDefault(_dialog);
 
@@ -2412,7 +2570,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2441,7 +2599,7 @@
 
 	var _util2 = _interopRequireDefault(_util);
 
-	var _dialog = __webpack_require__(3);
+	var _dialog = __webpack_require__(9);
 
 	var _dialog2 = _interopRequireDefault(_dialog);
 
@@ -2513,7 +2671,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2526,7 +2684,7 @@
 
 	var _util2 = _interopRequireDefault(_util);
 
-	var _toast = __webpack_require__(13);
+	var _toast = __webpack_require__(15);
 
 	var _toast2 = _interopRequireDefault(_toast);
 
@@ -2614,13 +2772,13 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, exports) {
 
 	module.exports = "<div class=\"<%= className %>\"> <div class=weui-mask_transparent></div> <div class=weui-toast> <i class=\"weui-icon_toast weui-icon-success-no-circle\"></i> <p class=weui-toast__content><%=content%></p> </div> </div> ";
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2633,11 +2791,11 @@
 
 	var _util2 = _interopRequireDefault(_util);
 
-	var _loading_mask = __webpack_require__(15);
+	var _loading_mask = __webpack_require__(17);
 
 	var _loading_mask2 = _interopRequireDefault(_loading_mask);
 
-	var _loading_no_mask = __webpack_require__(16);
+	var _loading_no_mask = __webpack_require__(18);
 
 	var _loading_no_mask2 = _interopRequireDefault(_loading_no_mask);
 
@@ -2719,19 +2877,19 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, exports) {
 
 	module.exports = "<div class=\"weui-loading_toast <%= className %>\"> <div class=weui-mask_transparent></div> <div class=weui-toast> <i class=\"weui-loading weui-icon_toast\"></i> <p class=weui-toast__content><%=content%></p> </div> </div> ";
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports) {
 
 	module.exports = "<div class=\"weui-loading_toast <%= className %>\"> <div class=weui-toast> <i class=\"weui-loading weui-icon_toast\"></i> <p class=weui-toast__content><%=content%></p> </div> </div> ";
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2744,7 +2902,7 @@
 
 	var _util2 = _interopRequireDefault(_util);
 
-	var _actionSheet = __webpack_require__(18);
+	var _actionSheet = __webpack_require__(20);
 
 	var _actionSheet2 = _interopRequireDefault(_actionSheet);
 
@@ -2878,13 +3036,13 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports) {
 
 	module.exports = "<div class=\"<% if(isAndroid){ %>weui-skin_android <% } %><%= className %>\"> <div class=weui-mask></div> <div class=weui-actionsheet> <% if(!isAndroid && title){ %> <div class=weui-actionsheet__title> <p class=weui-actionsheet__title-text><%= title %></p> </div> <% } %> <div class=weui-actionsheet__menu> <% for(var i = 0; i < menus.length; i++){ %> <div class=weui-actionsheet__cell><%= menus[i].label %></div> <% } %> </div> <div class=weui-actionsheet__action> <% for(var j = 0; j < actions.length; j++){ %> <div class=weui-actionsheet__cell><%= actions[j].label %></div> <% } %> </div> </div> </div> ";
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2897,7 +3055,7 @@
 
 	var _util2 = _interopRequireDefault(_util);
 
-	var _topTips = __webpack_require__(20);
+	var _topTips = __webpack_require__(22);
 
 	var _topTips2 = _interopRequireDefault(_topTips);
 
@@ -2998,13 +3156,13 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, exports) {
 
 	module.exports = "<div class=\"weui-toptips weui-toptips_warn <%= className %>\" style=display:block><%= content %></div> ";
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3100,7 +3258,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3203,7 +3361,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3216,7 +3374,7 @@
 
 	var _util2 = _interopRequireDefault(_util);
 
-	var _topTips = __webpack_require__(19);
+	var _topTips = __webpack_require__(21);
 
 	var _topTips2 = _interopRequireDefault(_topTips);
 
@@ -3486,7 +3644,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3499,13 +3657,13 @@
 
 	var _util2 = _interopRequireDefault(_util);
 
-	var _item = __webpack_require__(25);
+	var _item = __webpack_require__(27);
 
 	var _item2 = _interopRequireDefault(_item);
 
-	var _image = __webpack_require__(26);
+	var _image = __webpack_require__(28);
 
-	var _upload = __webpack_require__(27);
+	var _upload = __webpack_require__(29);
 
 	var _upload2 = _interopRequireDefault(_upload);
 
@@ -3807,13 +3965,13 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports) {
 
 	module.exports = "<li class=\"weui-uploader__file weui-uploader__file_status\" data-id=\"<%= id %>\"> <div class=weui-uploader__file-content> <i class=weui-loading style=width:30px;height:30px></i> </div> </li> ";
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -4045,7 +4203,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -4150,7 +4308,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4179,21 +4337,21 @@
 
 	var _util2 = _interopRequireDefault(_util);
 
-	var _cron = __webpack_require__(29);
+	var _cron = __webpack_require__(31);
 
 	var _cron2 = _interopRequireDefault(_cron);
 
-	__webpack_require__(30);
+	__webpack_require__(32);
 
-	var _util3 = __webpack_require__(31);
+	var _util3 = __webpack_require__(33);
 
 	var util = _interopRequireWildcard(_util3);
 
-	var _picker = __webpack_require__(32);
+	var _picker = __webpack_require__(34);
 
 	var _picker2 = _interopRequireDefault(_picker);
 
-	var _group = __webpack_require__(33);
+	var _group = __webpack_require__(35);
 
 	var _group2 = _interopRequireDefault(_group);
 
@@ -4675,7 +4833,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -4884,7 +5042,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 30 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5147,7 +5305,7 @@
 	};
 
 /***/ }),
-/* 31 */
+/* 33 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -5180,19 +5338,19 @@
 	};
 
 /***/ }),
-/* 32 */
+/* 34 */
 /***/ (function(module, exports) {
 
 	module.exports = " <div class=\"<%= className %>\"> <div class=weui-mask></div> <div class=\"weui-half-screen-dialog weui-picker\"> <div class=weui-half-screen-dialog__hd> <div class=weui-half-screen-dialog__hd__side> <button class=\"weui-icon-btn weui-icon-btn_close weui-picker__btn\">关闭</button> </div> <div class=weui-half-screen-dialog__hd__main> <strong class=weui-half-screen-dialog__title>标题</strong> </div> </div> <div class=weui-half-screen-dialog__bd> <div class=weui-picker__bd></div> </div> <div class=weui-half-screen-dialog__ft> <a href=javascript:; class=\"weui-btn weui-btn_primary weui-picker__btn\" id=weui-picker-confirm data-action=select>确定</a> </div> </div> </div>";
 
 /***/ }),
-/* 33 */
+/* 35 */
 /***/ (function(module, exports) {
 
 	module.exports = "<div class=weui-picker__group> <div class=weui-picker__mask></div> <div class=weui-picker__indicator></div> <div class=weui-picker__content></div> </div>";
 
 /***/ }),
-/* 34 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5205,7 +5363,7 @@
 
 	var _util2 = _interopRequireDefault(_util);
 
-	var _gallery = __webpack_require__(35);
+	var _gallery = __webpack_require__(37);
 
 	var _gallery2 = _interopRequireDefault(_gallery);
 
@@ -5292,13 +5450,13 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 35 */
+/* 37 */
 /***/ (function(module, exports) {
 
 	module.exports = "<div class=\"weui-gallery <%= className %>\"> <span class=weui-gallery__img style=\"background-image:url(<%= url %>)\"></span> <div class=weui-gallery__opr> <a href=javascript: class=weui-gallery__del> <i class=\"weui-icon-delete weui-icon_gallery-delete\"></i> </a> </div> </div> ";
 
 /***/ }),
-/* 36 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
