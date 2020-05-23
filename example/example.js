@@ -4,6 +4,25 @@ import weui from '../src/weui';
 
 FastClick.attach(document.body);
 
+
+document.querySelector('#dialogBtn').addEventListener('click', function () {
+    weui.dialog({
+        title: 'dialog标题',
+        content: 'sss<br />sss<br />sss<br />sss<br />sss<br />sss<br />sss<br />sss<br />sss<br />sss<br />sss<br />',
+        className: 'custom-classname',
+        buttons: [{
+            label: '取消',
+            type: 'default',
+            onClick: function () { }
+        }, {
+            label: '确定',
+            type: 'primary',
+            onClick: function () { }
+        }]
+    });
+});
+
+
 document.querySelector('#drawerBtn').addEventListener('click', function () {
     weui.drawer([
         {
